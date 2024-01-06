@@ -1,0 +1,14 @@
+/* Home.css */
+.custom-card {
+  background-color: #f8f9fa; /* Set your desired background color */
+  border: 1px solid #dee2e6; /* Set your desired border color */
+  border-radius: 10px; /* Add border-radius for rounded corners */
+  margin-bottom: 20px; /* Adjust margin for space between cards */
+}
+
+.custom-card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  max-height: 200px; /* Set max height for the image */
+  object-fit: cover; /* Ensure the image covers the entire container */
+}
