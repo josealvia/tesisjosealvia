@@ -163,7 +163,6 @@ function Header() {
               ):(
                 <>
                 <Nav.Link href="/login" style={{ color: '#3498db' }}>Iniciar sesión</Nav.Link>
-                <Nav.Link href="/registro" style={{ color: '#3498db' }}>Registrarse</Nav.Link>
                 </>
               )}
             </Nav>

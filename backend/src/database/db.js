@@ -2,7 +2,7 @@
 const {Sequelize} = require('sequelize')
 const {DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT} = require ('../config')
 
-if(process.env.NODE_ENV ==='production'){
+/*if(process.env.NODE_ENV ==='production'){
     db = new Sequelize({
         database: DB_NAME,
         username: DB_USER,
@@ -19,12 +19,12 @@ if(process.env.NODE_ENV ==='production'){
 
     });
 
-}
-/*const db = new Sequelize('prueba','root','',{
+}*/
+const db = new Sequelize('prueba','root','',{
     host:'localhost',
     dialect:'mysql'
 
-})*/
+})
 
 
 module.exports={
