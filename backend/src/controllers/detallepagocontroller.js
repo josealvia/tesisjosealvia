@@ -8,7 +8,7 @@
 //mostrar todos los registros
 
 const { response, request } = require('express');
-const {pagomodel, rubromodel, detallepagomodel}= require('../models/index')
+const {pagomodel, rubromodel, detallepagomodel, sociomodel}= require('../models/index')
 
 const getAlldetpago = async (req, res)=>{
     try {
@@ -16,6 +16,9 @@ const getAlldetpago = async (req, res)=>{
             include:[{
                 model:pagomodel,
                 required:true,
+                include:[{
+                    model: sociomodel
+                }]
                 
             },
             { 
@@ -39,6 +42,9 @@ const getdetpago = async (req, res)=>{
             },
             include:[{
                 model:pagomodel,
+                include:[{
+                    model: sociomodel
+                }]
                
             
             },

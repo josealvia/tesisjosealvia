@@ -299,17 +299,6 @@ const CompShowReportes=()=>{
 
 
 
-                <div className="card mb-4" id="reportepago-pdf">
-                    <div className="card-body d-flex flex-column align-items-start">
-                        <h5 className="card-title mb-3">Reporte de recaudaciones</h5>
-                            <div className="d-flex">
-                                <button type="submit" className="btn btn-primary " style={{ marginRight: '10px', marginBottom: '10px' }} >Todos las recaudaciones</button>
-                                <button type="submit" className="btn btn-primary " style={{ marginRight: '10px', marginBottom: '10px' }} >Recaudaciones por meses</button>
-                                <button type="submit" className="btn btn-primary " style={{ marginBottom: '10px' }} >Recaudaciones por años</button>
-                            </div> 
-                    </div>
-                </div>
-
                 <div className="card mb-4" id="reportereunion-pdf">
                     <div className="card-body d-flex flex-column align-items-start">
                         <h5 className="card-title mb-3">Reporte de reuniones</h5>
@@ -424,16 +413,6 @@ const CompShowReportes=()=>{
                     </div>
                 </div>
 
-                <div className="card mb-4">
-                    <div className="card-body d-flex flex-column align-items-start">
-                        <h5 className="card-title mb-3">Reporte de gastos</h5>
-                            <div className="d-flex">
-                                <button type="submit" className="btn btn-primary " style={{ marginRight: '10px', marginBottom: '10px' }} >Todos los gastos</button>
-                                <button type="submit" className="btn btn-primary " style={{ marginRight: '10px', marginBottom: '10px' }} >Gastos por meses</button>
-                                <button type="submit" className="btn btn-primary " style={{ marginBottom: '10px' }} >Gastos por años</button>
-                            </div> 
-                    </div>
-                </div>
             </div>
         </div>
 

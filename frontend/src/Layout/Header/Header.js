@@ -87,7 +87,6 @@ function Header() {
                 <NavDropdown title="Reuniones" id="reuniones-dropdown">
                   <NavDropdown.Item href="/createreunion" style={{ color: '#3498db' }}>Crear Reunion</NavDropdown.Item>
                   <NavDropdown.Item href="/reunion" style={{ color: '#3498db' }}>Lista reunion</NavDropdown.Item>
-                  <NavDropdown.Item href="/createrubro" style={{ color: '#3498db' }}>Asistencia</NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title="Gastos" id="gastos-dropdown">

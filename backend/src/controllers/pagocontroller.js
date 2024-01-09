@@ -111,7 +111,7 @@ const deletepago = async (req, res)=>{
     }
 };
 
-const cobrarpago = async (req, res) => {
+/*const cobrarpago = async (req, res) => {
     const { id } = req.params;
     const { idrubro } = req.body;
 
@@ -124,12 +124,6 @@ const cobrarpago = async (req, res) => {
             rubrosSeleccionados.has(rubro.id)
         );
 
-       /* let totalCantidaddetalle = 0;
-
-        // Calcula el total solo para los rubros seleccionados
-        rubrosFiltrados.forEach(rubro => {
-            totalCantidaddetalle += rubro.totalrubro;
-        });*/
 
         const nuevasEntradas = rubrosFiltrados.map((rubro) => ({
             id: null,
@@ -139,10 +133,6 @@ const cobrarpago = async (req, res) => {
             createdAt: new Date(),
             updatedAt: new Date(),
         }));
-
-        /*await detallepagomodel.destroy({
-            where: { idpago: id }
-        });*/
 
         const pago = await pagomodel.findOne({ where: { id: id, estadopago: true } });
         if (pago) {
@@ -161,7 +151,107 @@ const cobrarpago = async (req, res) => {
     } catch (error) {
         res.json({ message: error.message });
     }
-};
+};*/
+
+
+const cobrarpago = async (req, res) => {
+    const { id } = req.params;
+    const { idrubro } = req.body;
+
+    try {
+        // Verificar si el pago ya ha sido cobrado
+        const pagoCobrado = await pagomodel.findOne({ where: { id: id, estadopago: true } });
+        if (pagoCobrado) {
+            return res.json({ message: 'Este pago ya ha sido cobrado anteriormente.' });
+        }
+
+        // Obtener el socio asociado al pago
+        const socioAsociado = await pagomodel.findOne({
+            where: { id: id },
+            include: [{ model: sociomodel }],
+        });
+
+        if (!socioAsociado) {
+            return res.json({ message: 'Pago no encontrado.' });
+        }
+
+        // Verificar si el rubro ya ha sido pagado por el socio actual
+        const rubroYaPagadoPorSocio = await detallepagomodel.findOne({
+            where: {
+                '$pago.idsocio$': socioAsociado.socio.id,
+                '$rubro.id$': idrubro,
+                
+            },
+            include:[
+                {
+                    model:pagomodel,
+                    require:true,
+                    include:[
+                        {
+                            model:sociomodel,
+                            
+                        },
+                    ],
+                },
+                {
+                    model:rubromodel,
+                    where: { id: idrubro },
+                }
+            ]
+        });
+
+        if (rubroYaPagadoPorSocio) {
+            return res.json({ message: 'Este rubro ya ha sido pagado por este socio.' });
+        }
+
+        // Obtener todos los rubros pagados por cualquier socio
+        const rubrosPagados = await detallepagomodel.findAll({
+            where: {
+                idrubro: idrubro,
+            },
+        });
+
+        // Verificar si el socio actual ya ha pagado el rubro
+        const socioYaPagado = rubrosPagados.some((rubroPagado) => rubroPagado.idpago === id);
+
+        if (socioYaPagado) {
+            return res.json({ message: 'Este socio ya ha pagado este rubro.' });
+        }
+
+        // Obtener todos los rubros
+        const todosLosRubros = await rubromodel.findAll();
+
+        // Filtrar solo los rubros seleccionados
+        const rubrosSeleccionados = new Set(idrubro);
+        const rubrosFiltrados = todosLosRubros.filter((rubro) => rubrosSeleccionados.has(rubro.id));
+
+        // Crear nuevas entradas en detallepagomodel
+        const nuevasEntradas = rubrosFiltrados.map((rubro) => ({
+            id: null,
+            cantidaddetalle: rubro.totalrubro,
+            idpago: id,
+            idrubro: rubro.id,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        }));
+
+        // Actualizar el pago como cobrado
+        await pagomodel.update(
+            { estadopago: true },
+            {
+                where: { id: id },
+            }
+        );
+
+        // Crear nuevas entradas en detallepagomodel
+        await detallepagomodel.bulkCreate(nuevasEntradas);
+
+        res.json({ message: 'Pago tomado exitosamente' });
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
 
 module.exports={
     createpago,
