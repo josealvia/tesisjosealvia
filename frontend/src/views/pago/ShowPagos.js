@@ -288,7 +288,7 @@ return(
                                           <td>
                                           <Link to={`/cobrarpago/${item.id}`} className='btn btn-info action-button'><i>Cobrar </i>   </Link>
                                           <Link to={`/verpago/${item.id}`} className='btn btn-info action-button'><i>Ver </i>  </Link>
-                                              <Link to={`/editpago/${item.id}`} className='btn btn-info action-button'><i className="fa-solid fa-pen-to-square"></i>   </Link>
+                                              
                                               <button onClick={()=>deletePago(item.id)} className='btn btn-danger action-button'> <i className="fa-solid fa-trash-can"></i></button>
                                           </td>
                                       </tr>
@@ -326,7 +326,7 @@ return(
                                   <td>
                                   <Link to={`/cobrarpago/${pago.id}`} className='btn btn-info action-button'><i>Cobrar</i>   </Link>
                                   <Link to={`/verpago/${pago.id}`} className='btn btn-info action-button'><i>Ver </i>  </Link>
-                                      <Link to={`/editsocio/${pago.id}`} className='btn btn-info action-button'><i className="fa-solid fa-pen-to-square"></i>   </Link>
+                                    
                                       <button onClick={()=>deletePago(pago.id)} className='btn btn-danger action-button'> <i className="fa-solid fa-trash-can"></i></button>
                                   </td>
                               </tr>

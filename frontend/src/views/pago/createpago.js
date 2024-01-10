@@ -78,7 +78,7 @@ const AddPago = () => {
           idsocio: pago.idsocio,
 
       }
-      alert(nuevoPago.idsocio);
+      //alert(nuevoPago.idsocio);
       await axios.post(URI, nuevoPago);
       navigate("/pago");
     } else{

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useCallback } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 
 const URI= 'http://localhost:5000/usuario/'
@@ -22,6 +22,34 @@ const CompEditUsuario  =()=>{
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate()
     const {id} = useParams()
+
+    const getRolById = useCallback(async () => {
+        const res = await axios.get(URI + id);
+        const rolData = res.data;
+        setFormData({
+          nombreusuario: rolData.nombreusuario,
+          contraseñausuario: rolData.contraseñausuario,
+          nombrecompletousuario: rolData.nombrecompletousuario,
+          correousuario: rolData.correousuario,
+          telefonousuario: rolData.telefonousuario,
+          idrol: rolData.idrol,
+        });
+      }, [id]);
+
+
+    useEffect(() => {
+    const fetchData = async () => {
+      await getRolById();
+      try {
+        const response = await axios.get(URIROL);
+        setRoles(response.data);
+      } catch (error) {
+        console.error('Error al obtener los roles', error);
+      }
+    };
+
+    fetchData();
+  }, [getRolById, id]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -81,37 +109,6 @@ const CompEditUsuario  =()=>{
             [name]: value,
         });
     };
-
-
-
-    useEffect(()=>{
-        getRolById()
-        axios.get(URIROL)
-        .then(response =>{
-            setRoles(response.data);
-        })
-        .catch(error => {
-            console.error('Error al obtener los roles', error);
-        })
-    },[])
-
-    const getRolById = async ()=>{
-        const res = await axios.get(URI+id)
-        const rolData = res.data;
-        setFormData({
-            nombreusuario:rolData.nombreusuario,
-            contraseñausuario:rolData.contraseñausuario,
-            nombrecompletousuario:rolData.nombrecompletousuario,
-            correousuario:rolData.correousuario,
-            telefonousuario:rolData.telefonousuario,
-            idrol:rolData.idrol
-
-        })
-    }
-
-
-
-
 
 
     return (

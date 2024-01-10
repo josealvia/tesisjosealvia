@@ -171,9 +171,186 @@ const CompShowReportes=()=>{
 
 
 
-
-
     return(
+        <div className='container'>
+            <div className='mt-5'>
+                <h4>Reportes</h4>
+            </div> 
+            <div className="container mt-4">
+                <div className="card mb-4" id="reporte-pdf">
+                    <div className="card-body d-flex flex-column align-items-start">
+                        <h5 className="card-title mb-3">Reporte de socios</h5>
+                        {!mostrarEncabezado && (
+                        <button onClick={obtenerSocios} type="submit" className="btn btn-primary" >Todos los socios</button>
+                        )}
+                        {mostrarEncabezado && (
+                        <div>
+                            <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '30px' }}>
+                                <thead>
+                                    <tr style={{ backgroundColor: '#f2f2f2' }}>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>ID</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Cédula</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Nombres</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Apellidos</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Dirección</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Teléfono</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {socios.map(socio => (
+                                    <tr key={socio.id}>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{socio.id}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{socio.cedulasocio}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{socio.nombresocio}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{socio.apellidosocio}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{socio.direccionsocio}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{socio.telefonosocio}</td>
+                                        
+                                    </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <button className='btn btn-primary action-button' onClick={generarPDF}>Generar PDF</button>
+                            <button  onClick={cerrarEncabezado} className="btn btn-danger action-button">Cerrar</button>
+                        </div>
+                        )}  
+                    </div>
+                </div>
+
+                <div className="card mb-4" id="reportepago-pdf">
+                    <div className="card-body d-flex flex-column align-items-start">
+                        <h5 className="card-title mb-3">Reporte de recaudaciones</h5>
+                        {!mostrarEncabezadoPago && (
+                        <button onClick={obtenerPagos} type="submit" className="btn btn-primary" style={{ marginRight: '10px', marginBottom: '10px' }} >Todos las recaudaciones</button>
+                        )}
+                        {mostrarEncabezadoPago && (
+                        <div>
+                            <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '30px' }}>
+                                <thead>
+                                    <tr style={{ backgroundColor: '#f2f2f2' }}>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>ID</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Cédula Socio</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Nombres</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Apellidos</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Cantidad de Pago</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Fecha</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {pagos.map(pago => (
+                                    <tr key={pago.id}>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{pago.id}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{pago.socio.cedulasocio}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{pago.socio.nombresocio}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{pago.socio.apellidosocio}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{pago.cantidadpago}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{pago.fechapago}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{pago.estadopago === 1 || pago.estadopago ===true ? 'Pagado' : 'No pagado' }</td>
+                                        
+                                    </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <button className='btn btn-primary action-button' onClick={generarpagoPDF}>Generar PDF</button>
+                            <button onClick={cerrarEncabezadoPago} className="btn btn-danger action-button">Cerrar</button>
+                        </div>
+                        )}
+                    </div>
+                </div>
+
+
+
+                <div className="card mb-4" id="reportereunion-pdf">
+                    <div className="card-body d-flex flex-column align-items-start">
+                        <h5 className="card-title mb-3">Reporte de reuniones</h5>
+                        {!mostrarEncabezadoreunion && (
+                        <button onClick={obtenerReunion} type="submit" className="btn btn-primary" >Todas las reuniones</button>
+                        )}
+                        {mostrarEncabezadoreunion && (
+                        <div>
+                            <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '30px' }}>
+                                <thead>
+                                    <tr style={{ backgroundColor: '#f2f2f2' }}>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>ID</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Sección</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Descripción</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Fecha</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Lugar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {reuniones.map(reunion => (
+                                    <tr key={reunion.id}>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{reunion.id}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{reunion.seccionreunion}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{reunion.descripcionreunion}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{reunion.fechareunion}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{reunion.lugarreunion}</td>
+                                        
+                                    </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <button className='btn btn-primary action-button' onClick={generarreunionPDF}>Generar PDF</button>
+                            <button onClick={cerrarEncabezadoReunion} className="btn btn-danger action-button">Cerrar</button>
+                        </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="card mb-4" id="reportegasto-pdf">
+                    <div className="card-body d-flex flex-column align-items-start">
+                        <h5 className="card-title mb-3">Reporte de gastos</h5>
+                        {!mostrarEncabezadogasto && (
+                        <button onClick={obtenerGasto} type="submit" className="btn btn-primary" style={{ marginRight: '10px', marginBottom: '10px' }} >Todos los Gastos</button>
+                        )}
+                        {mostrarEncabezadogasto && (
+                        <div>
+                            <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '30px' }}>
+                                <thead>
+                                    <tr style={{ backgroundColor: '#f2f2f2' }}>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>ID</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Descripción</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Monto</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Fecha</th>
+                                        <th style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>Rubro</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {gastos.map(gasto => (
+                                    <tr key={gasto.id}>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{gasto.id}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{gasto.descripciongasto}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{gasto.montogasto}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{gasto.fechagasto}</td>
+                                        <td style={{ border: '3px solid #dddddd', textAlign: 'left', padding: '25px 35px', fontSize: '15px' }}>{gasto.rubro.nombrerubro}</td>
+                                        
+                                        
+                                    </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <button className='btn btn-primary action-button' onClick={generargastoPDF}>Generar PDF</button>
+                            <button onClick={cerrarEncabezadoGasto} className="btn btn-danger action-button">Cerrar</button>
+                        </div>
+                        )}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+        
+    );
+
+
+}
+
+    /*return(
         <div className='container'>
             <div className='mt-5'>
                 <h4>Reportes</h4>
@@ -421,7 +598,7 @@ const CompShowReportes=()=>{
     );
 
 
-}
+}*/
 
 
 export default CompShowReportes

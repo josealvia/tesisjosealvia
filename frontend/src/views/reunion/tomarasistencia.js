@@ -192,7 +192,7 @@ const TomarAsistencia =()=>{
           ) : (
             <div>
               {asistenciaTomada ? (
-                <p className="alert alert-warning">La asistencia ya ha sido tomada anteriormente.</p>
+                <p className="alert alert-warning">Asistencia Guardada.</p>
               ) : null}
             </div>
           )}

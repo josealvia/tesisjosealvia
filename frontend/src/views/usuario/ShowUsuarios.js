@@ -49,7 +49,7 @@ const CompShowUsuarios=()=>{
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentUsuarios = usuarios.slice(indexOfFirstItem, indexOfLastItem);
+    usuarios.slice(indexOfFirstItem, indexOfLastItem);
 
     const pageNumbers = [];
         for (let i = 1; i <= Math.ceil(usuarios.length / itemsPerPage); i++) {

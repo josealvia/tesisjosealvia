@@ -452,10 +452,10 @@ const CobrarPago = () => {
   const [totalAPagar, setTotalAPagar] = useState(0);
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedRubro, setSelectedRubro] = useState(null);
   const [pagoExitoso, setPagoExitoso] = useState(false);
   const [mostrarBotonRegresar, setMostrarBotonRegresar] = useState(false);
   const [mostrarBotonImprimir, setMostrarBotonImprimir] = useState(false);
+  const [rubrosSelected, setRubrosSelected] = useState(false);
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -511,6 +511,7 @@ const CobrarPago = () => {
     };
 
     calcularTotalAPagar();
+    setRubrosSelected(rubrosSeleccionados.length > 0);
   }, [rubrosSeleccionados, rubros]);
 
 
@@ -552,7 +553,7 @@ const CobrarPago = () => {
           idrubro: rubrosSeleccionados,
           // Otros datos necesarios para la API de cobro, si es necesario
         });
-        console.log(response.data.message); // Mensaje de la API
+        alert(response.data.message); // Mensaje de la API
         await validarPagoCobrado();
       } catch (error) {
         console.error('Error al realizar el pago:', error);
@@ -719,6 +720,7 @@ const CobrarPago = () => {
                     type="button"
                     className="btn btn-primary"
                     onClick={handleSubmitPago}
+                    disabled={!rubrosSelected}
                   >
                   Realizar Pago
                   </button>

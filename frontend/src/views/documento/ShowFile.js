@@ -48,12 +48,7 @@ function CompShowFiles() {
                   >
                     Descargar
                   </button>
-                  <button
-                    className="btn btn-primary btn-sm"
-                    onClick={() => window.open(`${URI}open/${document.name}`)}
-                  >
-                    Abrir
-                  </button>
+                  
                 </div>
               </li>
             ))}

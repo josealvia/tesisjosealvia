@@ -5,7 +5,7 @@ import {jwtDecode} from 'jwt-decode';
 
 const handdleLogout = () => {
   localStorage.removeItem('token');
-  window.location.href = '/login';
+  window.location.href = '/';
 }
 
 function Header() {
@@ -162,7 +162,7 @@ function Header() {
                 </>
               ):(
                 <>
-                <Nav.Link href="/login" style={{ color: '#3498db' }}>Iniciar sesión</Nav.Link>
+                <Nav.Link href="/" style={{ color: '#3498db' }}>Iniciar sesión</Nav.Link>
                 </>
               )}
             </Nav>

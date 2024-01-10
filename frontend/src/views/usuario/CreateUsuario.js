@@ -45,7 +45,8 @@ const CompCreateusuario =()=>{
             // If no errors, submit the form
             try {
                 const response = await axios.post(URI, formData);
-                const usuarioId = response.data.id;
+                //const usuarioId = response.data.id;
+                console.log(response.data.id);
                 navigate('/usuario');
             } catch (error) {
                 console.error('Error al guardar el usuario', error);

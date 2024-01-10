@@ -11,7 +11,7 @@ const CompCreatereunion =()=>{
         seccionreunion: '',
         descripcionreunion: '',
         fechareunion: '',
-        asistenciatomada: '',
+        asistenciatomada: false,
         lugarreunion: '',
         idusuario: ''
     })
@@ -74,9 +74,6 @@ const CompCreatereunion =()=>{
 
         if (!data.fechareunion) {
             errors.fechareunion = 'Este campo es obligatorio.';
-        }
-        if (!data.asistenciatomada) {
-            errors.asistenciatomada = 'Este campo es obligatorio.';
         }
 
         if (!data.lugarreunion) {
@@ -175,28 +172,7 @@ const CompCreatereunion =()=>{
                                         </div>
                                     </div>
 
-                                    <div className="col-md-6">
-                                        <div className="mb-3">
-                                            <label htmlFor="asistencia" className="form-label">
-                                                Asistencia
-                                            </label>
-                                            <input
-                                                id="asistencia"
-                                                name="asistenciatomada"
-                                                value={formData.asistenciatomada}
-                                                onChange={handleChange}
-                                                type="text"
-                                                className={`form-control ${
-                                                    formErrors.asistenciatomada ? 'is-invalid' : ''
-                                                }`}
-                                                required
-                                            />
-                                            {formErrors.asistenciatomada && (
-                                                <div className="invalid-feedback">{formErrors.asistenciatomada}</div>
-                                            )}
-                                        </div>
-                                    </div>
-
+                                    
                                     <div className="col-md-6">
                                         <div className="mb-3">
                                             <label htmlFor="lugar" className="form-label">

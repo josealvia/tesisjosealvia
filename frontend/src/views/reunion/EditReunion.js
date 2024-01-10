@@ -11,7 +11,7 @@ const CompEditReunion  =()=>{
         seccionreunion: '',
         descripcionreunion: '',
         fechareunion: '',
-        asistenciatomada: '',
+        //asistenciatomada: '',
         lugarreunion: '',
         idusuario: ''
     })
@@ -63,9 +63,9 @@ const CompEditReunion  =()=>{
         if (!data.fechareunion) {
             errors.fechareunion = 'Este campo es obligatorio.';
         }
-        if (!data.asistenciatomada) {
+        /*if (!data.asistenciatomada) {
             errors.asistenciatomada = 'Este campo es obligatorio.';
-        }
+        }*/
 
 
         if (!data.lugarreunion) {
@@ -106,7 +106,7 @@ const CompEditReunion  =()=>{
             seccionreunion:reunionData.seccionreunion,
             descripcionreunion:reunionData.descripcionreunion,
             fechareunion:reunionData.fechareunion,
-            asistenciatomada:reunionData.asistenciatomada,
+            //asistenciatomada:reunionData.asistenciatomada,
             lugarreunion:reunionData.lugarreunion,
             idusuario:reunionData.idusuario
         })
@@ -190,27 +190,7 @@ const CompEditReunion  =()=>{
                                             )}
                                         </div>
                                     </div>
-                                    <div className="col-md-6">
-                                        <div className="mb-3">
-                                            <label htmlFor="asistencia" className="form-label">
-                                                Asistencia
-                                            </label>
-                                            <input
-                                                id="asistencia"
-                                                name="asistenciatomada"
-                                                value={formData.asistenciatomada}
-                                                onChange={handleChange}
-                                                type="text"
-                                                className={`form-control ${
-                                                    formErrors.asistenciatomada ? 'is-invalid' : ''
-                                                }`}
-                                                required
-                                            />
-                                            {formErrors.asistenciatomada && (
-                                                <div className="invalid-feedback">{formErrors.asistenciatomada}</div>
-                                            )}
-                                        </div>
-                                    </div>
+                                    
 
                                     <div className="col-md-6">
                                         <div className="mb-3">
