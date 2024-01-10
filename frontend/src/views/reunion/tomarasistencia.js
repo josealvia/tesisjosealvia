@@ -155,51 +155,51 @@ const TomarAsistencia =()=>{
           <h1>Tomar Asistencia</h1>
         </div>
         
-        <div className="attendance-form"> 
+        <div className="attendance-form">
+        {asistenciaTomada ? (
           <div>
-          <form>
-            {socios.map((socio) => (
-              <div key={socio.id} className="attendance-item">
-                <div className="checkbox-wrapper">
-                  <input
-                    type="checkbox"
-                    value={socio.id}
-                    checked={asistenciaData.includes(socio.id)}
-                    onChange={() => handleCheckboxChange(socio.id)}
-                    id={`checkbox-${socio.id}`}
-                  />
-                  <label htmlFor={`checkbox-${socio.id}`}>
-                    <span>{`${socio.nombresocio} ${socio.apellidosocio}`}</span>
-                  </label>
-                </div>
-              </div>
-            ))}
-            <button type="button" onClick={TomarAsistencia}>
-              Tomar Asistencia
-            </button>
-          </form>
+            <p className="alert alert-warning">Asistencia Guardada.</p>
+            {mostrarBotonRegresar && (
+              <button className="btn btn-primary" onClick={handleRegresar}>
+                Regresar
+              </button>
+            )}
           </div>
+        ) : (
+          <div>
+            <form>
+              {socios.map((socio) => (
+                <div key={socio.id} className="attendance-item">
+                  <div className="checkbox-wrapper">
+                    <input
+                      type="checkbox"
+                      value={socio.id}
+                      checked={asistenciaData.includes(socio.id)}
+                      onChange={() => handleCheckboxChange(socio.id)}
+                      id={`checkbox-${socio.id}`}
+                    />
+                    <label htmlFor={`checkbox-${socio.id}`}>
+                      <span>{`${socio.nombresocio} ${socio.apellidosocio}`}</span>
+                    </label>
+                  </div>
+                </div>
+              ))}
+              <button type="button" onClick={TomarAsistencia}>
+                Tomar Asistencia
+              </button>
+            </form>
+          </div>
+        )}
 
-          {asistenciaExitosa ? (
-            <div>
-              <p className="alert alert-success">La asistencia ha sido guardada exitosamente.</p>
-              {mostrarBotonRegresar && (
-                    <button className="btn btn-primary" onClick={handleRegresar}>
-                      Regresar
-                    </button>
-              )}
-            </div>
-          ) : (
-            <div>
-              {asistenciaTomada ? (
-                <p className="alert alert-warning">Asistencia Guardada.</p>
-              ) : null}
-            </div>
-          )}
-        </div>
+        {asistenciaExitosa && !asistenciaTomada && (
+          <div>
+            <p className="alert alert-success">La asistencia ha sido guardada exitosamente.</p>
+          </div>
+        )}
       </div>
-    );
-}
+    </div>
+  );
+};
 
 
 export default TomarAsistencia;

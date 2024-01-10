@@ -9,6 +9,8 @@ const URIPAGO = "http://localhost:5000/pago/";
 const VerPago =()=>{
     const { id } = useParams();
     const [pago, setPago] = useState(null);
+    const navigate = useNavigate();
+
 
     const getPago= async()=>{
         try {
@@ -21,6 +23,9 @@ const VerPago =()=>{
     useEffect(() => {
         getPago();
     }, []);
+    const handlePrint = () => {
+        window.print();
+    };
 
 
     return(
@@ -118,6 +123,21 @@ const VerPago =()=>{
                                 </div>
                         </div>
                     </div>
+
+                    <div className="row mt-3">
+                        <div className="col-md-6">
+                            <button className="btn btn-primary mr-2" onClick={handlePrint}>
+                                Imprimir
+                            </button>
+                        </div>
+                        <div className="col-md-6 text-right">
+                            <button className="btn btn-secondary" onClick={() => navigate(-1)}>
+                                Regresar
+                            </button>
+                        </div>
+                    </div>
+                    <div className="mt-5"> </div>
+
                 </div>
             )}
         </div>

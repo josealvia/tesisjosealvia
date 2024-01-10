@@ -1,4 +1,5 @@
 const {documentmodel} = require('../models/index');
+const fs = require('fs')
 
 const uploadFile = async(req, res)=>{
     try {
@@ -56,11 +57,43 @@ const deleteFile = async (req, res)=>{
 };
 
 
+//descargar 
+const downloadFile = async (req, res) => {
+    try {
+        const document = await documentmodel.findByPk(req.params.id);
+
+        if (!document) {
+            return res.status(404).json({ error: 'Documento no encontrado' });
+        }
+
+        const fileStream = fs.createReadStream(document.path);
+        fileStream.on('open', () => {
+        res.setHeader('Content-Disposition', `attachment; filename=${document.name}`);
+        res.setHeader('Content-Type', 'application/pdf'); // Cambia el tipo de contenido según el tipo de archivo
+
+        fileStream.pipe(res);
+        });
+        fileStream.on('error', (error) => {
+            console.error(error);
+            return res.status(500).json({ error: 'Error al descargar el documento' });
+        });
+
+        fileStream.on('end', () => {
+            res.end();
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Error al descargar el documento' });
+    }
+};
+
+
 
 module.exports={
     uploadFile,
     getAllFile,
     deleteFile,
     updatefile,
+    downloadFile,
    
 }

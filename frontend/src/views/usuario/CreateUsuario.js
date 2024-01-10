@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 
 const URI= 'http://localhost:5000/auth/register'
 const URIROL='http://localhost:5000/rol/'
+const URIUSUARIO= 'http://localhost:5000/usuario/'
 
 const CompCreateusuario =()=>{
 
@@ -18,11 +19,19 @@ const CompCreateusuario =()=>{
 
     })
     const [roles, setRoles] = useState([])
+    const [usuarios , setUsuario]= useState([])
     const [formErrors, setFormErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate()
 
     useEffect(()=>{
+        axios.get(URIUSUARIO)
+        .then(response =>{
+            setUsuario(response.data);
+        })
+        .catch(error => {
+            console.error('Error al obtener los roles', error);
+        })
         axios.get(URIROL)
         .then(response =>{
             setRoles(response.data);
@@ -42,15 +51,52 @@ const CompCreateusuario =()=>{
         setFormErrors(errors);
 
         if (Object.keys(errors).length === 0) {
-            // If no errors, submit the form
-            try {
-                const response = await axios.post(URI, formData);
-                //const usuarioId = response.data.id;
-                console.log(response.data.id);
-                navigate('/usuario');
-            } catch (error) {
-                console.error('Error al guardar el usuario', error);
-            }
+            const existeUsuario  = usuarios.find((usuario) => usuario.nombreusuario === formData.nombreusuario);
+            const existeCorreo = usuarios.find((usuario) => usuario.correousuario === formData.correousuario);
+            const existeTelefono = usuarios.find((usuario) => usuario.telefonousuario === formData.telefonousuario);
+
+            if (existeUsuario  && existeCorreo && existeTelefono ) {
+                // If cedula already exists, show an error message
+                setFormErrors({
+                    nombreusuario: 'Ya existe un usuario con el mismo nombre de usuario.',
+                    correousuario: 'Ya existe un usuario con el mismo correo.',
+                    telefonousuario: 'Ya existe un usuario con el mismo teléfono.'
+                });
+                setIsSubmitting(false);
+            } else if (existeUsuario) {
+                // Si ya existe un socio con la misma cédula, mostrar mensaje de error para cédula
+                setFormErrors({
+                    nombreusuario: 'Ya existe un usuario con el mismo nombre de usuario.',
+                    correousuario: '',
+                    telefonousuario: ''
+                });
+                setIsSubmitting(false);
+            } else if (existeCorreo) {
+                // Si ya existe un socio con el mismo correo, mostrar mensaje de error para correo
+                setFormErrors({
+                    nombreusuario: '',
+                    correousuario: 'Ya existe un usuario con el mismo correo.',
+                    telefonousuario: ''
+                });
+                setIsSubmitting(false);
+            } else if (existeTelefono) {
+                // Si ya existe un socio con el mismo correo, mostrar mensaje de error para correo
+                setFormErrors({
+                    nombreusuario: '',
+                    correousuario: '',
+                    telefonousuario: 'Ya existe un usuario con el mismo teléfono.'
+                });
+                setIsSubmitting(false);
+            }else{
+                try {
+                    const response = await axios.post(URI, formData);
+                    //const usuarioId = response.data.id;
+                    console.log(response.data.id);
+                    navigate('/usuario');
+                } catch (error) {
+                    console.error('Error al guardar el usuario', error);
+                }
+            } 
         } else {
             setIsSubmitting(false);
         }

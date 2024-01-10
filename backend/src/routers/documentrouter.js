@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const {uploadFile, getAllFile, de, deleteFile, updatefile, openFile} = require('../controllers/documentcontroller')
+const {uploadFile, getAllFile, de, deleteFile, updatefile, openFile, downloadFile} = require('../controllers/documentcontroller')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -20,6 +20,8 @@ const upload = multer({ storage: storage });
 
 router.post('/upload', upload.single('file'),uploadFile)
 router.get('/', getAllFile)
+router.get('/download/:id', downloadFile)
+
 router.put('/:id',updatefile)
 router.delete('/:id',deleteFile)
 module.exports = router;

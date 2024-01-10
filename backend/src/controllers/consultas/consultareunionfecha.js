@@ -6,7 +6,7 @@ const consultareunionfecha = async (req, res)=>{
     try {
         const consultareunion = await reunionmodel.findAll({
                 where:{
-                    fechareunion:req.params.fechareunion
+                    fechareunion: reunionmodel.sequelize.literal(`DATE_FORMAT(fechareunion, '%Y-%m-%d') = '${req.params.fechareunion}'`)
                 },
                 include:[{
                     model:usuariomodel

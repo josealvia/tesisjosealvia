@@ -55,12 +55,40 @@ const CompCreatesocio =()=>{
         setFormErrors(errors);
 
         if (Object.keys(errors).length === 0) {
-            const existesocio = socios.find((socio) => socio.cedulasocio === formData.cedulasocio);
-            if (existesocio) {
+            const existeCedula  = socios.find((socio) => socio.cedulasocio === formData.cedulasocio);
+            const existeCorreo = socios.find((socio) => socio.correosocio === formData.correosocio);
+            const existeTelefono = socios.find((socio) => socio.telefonosocio === formData.telefonosocio);
+            if (existeCedula  && existeCorreo && existeTelefono ) {
                 // If cedula already exists, show an error message
                 setFormErrors({
-                    ...errors,
-                    cedulasocio: 'Ya existe un socio con la misma cédula.'
+                    cedulasocio: 'Ya existe un socio con la misma cédula.',
+                    correosocio: 'Ya existe un socio con el mismo correo.',
+                    telefonosocio: 'Ya existe un socio con el mismo teléfono.'
+                });
+                setIsSubmitting(false);
+
+            } else if (existeCedula) {
+                // Si ya existe un socio con la misma cédula, mostrar mensaje de error para cédula
+                setFormErrors({
+                    cedulasocio: 'Ya existe un socio con la misma cédula.',
+                    correosocio: '',
+                    telefonosocio: ''
+                });
+                setIsSubmitting(false);
+            } else if (existeCorreo) {
+                // Si ya existe un socio con el mismo correo, mostrar mensaje de error para correo
+                setFormErrors({
+                    cedulasocio: '',
+                    correosocio: 'Ya existe un socio con el mismo correo.',
+                    telefonosocio: ''
+                });
+                setIsSubmitting(false);
+            } else if (existeTelefono) {
+                // Si ya existe un socio con el mismo correo, mostrar mensaje de error para correo
+                setFormErrors({
+                    cedulasocio: '',
+                    correosocio: '',
+                    telefonosocio: 'Ya existe un socio con el mismo teléfono.'
                 });
                 setIsSubmitting(false);
             }else{
@@ -113,8 +141,6 @@ const CompCreatesocio =()=>{
         if (!data.correosocio) {
             errors.correosocio = 'Este campo es obligatorio.';
         }
-
-
         return errors;
     };
 

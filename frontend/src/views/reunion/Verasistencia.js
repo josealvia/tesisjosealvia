@@ -8,6 +8,7 @@ const URIREUNION = "http://localhost:5000/reunion/";
 const VerAsistencia =()=>{
     const { id } = useParams();
     const [reunion, setReunion] = useState(null);
+    const navigate = useNavigate();
 
     const getReunion= async()=>{
         try {
@@ -23,11 +24,16 @@ const VerAsistencia =()=>{
         getReunion();
       }, []);
 
+    const handlePrint = () => {
+        // Add your printing logic here
+        window.print();
+    };
+
 
 
     return(
         <div>
-            <h2 className="mb-4">Datos del Socio</h2>
+            <h2 className="mb-4">Datos del Reunión</h2>
             {reunion && (
                 <div>
                   <div className="container">
@@ -88,6 +94,20 @@ const VerAsistencia =()=>{
                                 </tbody>
                       </table>
                     </div>
+                    <div className="row mt-3">
+                        <div className="col-md-6">
+                            <button className="btn btn-primary mr-2" onClick={handlePrint}>
+                                Imprimir
+                            </button>
+                        </div>
+                        <div className="col-md-6 text-right">
+                            <button className="btn btn-secondary" onClick={() => navigate(-1)}>
+                                Regresar
+                            </button>
+                        </div>
+                    </div>
+                    <div className="mt-5"> </div>
+
                 </div>
             )}
         </div>

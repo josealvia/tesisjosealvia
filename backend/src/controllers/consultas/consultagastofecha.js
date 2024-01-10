@@ -6,7 +6,7 @@ const consultagastofecha = async (req, res)=>{
     try {
         const gastofecha = await gastomodel.findAll({
             where: { 
-                fechagasto:req.params.fechagasto
+                fechagasto: gastomodel.sequelize.literal(`DATE_FORMAT(fechagasto, '%Y-%m-%d') = '${req.params.fechagasto}'`)
             },
             
             include:[{

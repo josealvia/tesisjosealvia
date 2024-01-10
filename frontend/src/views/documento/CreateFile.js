@@ -1,11 +1,13 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom'
 
 const URI= 'http://localhost:5000/document/upload'
 
 function DocumentUpload() {
   const [file, setFile] = useState(null);
+  const navigate = useNavigate()
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -24,6 +26,7 @@ function DocumentUpload() {
 
       alert('Documento cargado con éxito');
       setFile(null);
+      navigate('/document');
     } catch (error) {
       console.error(error);
       alert('Error al cargar el documento');

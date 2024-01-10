@@ -18,9 +18,9 @@ function CompShowFiles() {
       });
   }, []); // El segundo argumento vacío asegura que la solicitud se realice solo una vez al montar el componente
 
-  const downloadFile = (fileName) => {
+  const downloadFile = (documentId) => {
    
-  window.open(`${URI}download/${fileName}`);
+  window.open(`${URI}download/${documentId}`);
   };
 
   
@@ -39,12 +39,12 @@ function CompShowFiles() {
           <h1>Lista de Documentos</h1>
           <ul className="list-group">
             {documents.map((document) => (
-              <li key={document._id} className="list-group-item d-flex justify-content-between align-items-center">
+              <li key={document.id} className="list-group-item d-flex justify-content-between align-items-center">
                 {document.name}
                 <div className="btn-group" role="group">
                   <button
                     className="btn btn-success btn-sm"
-                    onClick={() => downloadFile(document.name)}
+                    onClick={() => downloadFile(document.id)}
                   >
                     Descargar
                   </button>
